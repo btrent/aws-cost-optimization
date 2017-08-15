@@ -77,7 +77,7 @@ def load_creds():
         if len(line) < 2 or line[0] == '#':
             continue
 
-        #[techonline]
+        #[account_name]
         if line[0] == '[' and line[len(line)-1] == ']':
             if tmp != ['','','']:
                 creds.append(tmp)
@@ -147,7 +147,6 @@ def get_reserved_instances(ec2, display=False):
 def check_reservable(i):
     global suggest_reserved_threshold
     
-    #launched_date = datetime(int(i['LaunchTime'][0:4]), int(i['LaunchTime'][5:7]), int(i['LaunchTime'][8:10]))
     now = datetime.now()
     elapsed_time = now - i['LaunchTime'].replace(tzinfo=None)
 
@@ -172,8 +171,6 @@ def check_resizable(i):
         print_instance(i, 'CPU Utilization is only ' + str(cpu_usage) + '%. Can this be a smaller instance type?')
 
 def print_instance(i, comment=''):
-    #print json.dumps(i, indent=4, sort_keys=True, default=json_serial)        
-
     print '-------------------------------'
     print 'Account: ' + i['AccountName']
     if 'Tags' in i:
